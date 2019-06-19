@@ -16,6 +16,7 @@ const fileExistsSync = require(`fs-exists-cached`).sync
 const joiSchemas = require(`../../joi-schemas/joi`)
 const { generateComponentChunkName } = require(`../../utils/js-chunk-names`)
 const apiRunnerNode = require(`../../utils/api-runner-node`)
+const { trackCli } = require(`gatsby-telemetry`)
 
 const actions = {}
 
@@ -557,6 +558,8 @@ const createNode = (
       )
     )
   }
+
+  trackCli(`CREATE_NODE`, {}, { debounce: true })
 
   // Ensure the new node has an internals object.
   if (!node.internal) {
